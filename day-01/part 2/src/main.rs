@@ -1,6 +1,6 @@
 use std::fs;
 
-fn main(){
+fn main() {
     let mut current_f = 0;
     let mut res = i32::max_value();
 
@@ -10,22 +10,20 @@ fn main(){
     frequencies.push(current_f);
 
     while res == i32::max_value() {
-        let vec = input.split("\n");
+        let vec = input.split('\n');
         for s in vec {
             let val = s.parse::<i32>().unwrap();
             current_f += val;
 
             if !frequencies.contains(&current_f) {
                 frequencies.push(current_f);
-            }
-            else {
+            } else {
                 res = current_f;
                 break;
             }
         }
         //println!("{:?}", frequencies);
     }
-    
-    println!("{}",res);
-    
+
+    println!("{}", res);
 }
