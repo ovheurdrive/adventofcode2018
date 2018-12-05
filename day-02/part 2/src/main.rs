@@ -30,13 +30,14 @@ fn diff(a: &str, b: &str) -> Result<i32, String> {
 }
 
 fn common(a: &str, b: &str) -> String {
-    if a.chars().nth(0) == b.chars().nth(0) {
-        let mut res = String::from(&a[0..1]);
-        res.push_str(&common(&a[1..], &b[1..]));
-        res
-    } else {
-        a[1..].to_string()
+    let mut res = String::new();
+    let ( iter_a, iter_b) = (a.chars(), b.chars());
+    for it in iter_a.zip(iter_b) {
+        if it.0 == it.1 {
+            res.push(it.0);
+        }
     }
+    res
 }
 
 #[cfg(test)]
