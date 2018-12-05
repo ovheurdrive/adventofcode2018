@@ -1,25 +1,25 @@
 use std::env::args;
 
 fn main() {
-    println!("{}", run(args().nth(1).expect("Please provide an input")))
+    println!("{}", run(args().nth(1).expect("Please provide an input")).unwrap())
 }
 
-fn run(input: String) -> String {
+fn run(input: String) -> Option<String> {
     let lines: Vec<&str> = input.lines().collect();
     for (index, elem) in lines.iter().enumerate() {
         for elem2 in lines.iter().skip(index +1){
             if diff(elem, elem2).unwrap_or(0) == 1 {
-                return common(elem,elem2)
+                return Some(common(elem,elem2))
             }
         }
     }
-    String::new()
+    Some(String::from("No string in input matches"))
 }
 
 fn diff(a: &str, b: &str) -> Result<i32, String> {
-    let (mut ita, mut itb, mut count) = (a.chars(), b.chars(), 0);
+    let (mut iter_a, mut iter_b, mut count) = (a.chars(), b.chars(), 0);
     loop {
-        match (ita.next(), itb.next()) {
+        match (iter_a.next(), iter_b.next()) {
             (Some(x), Some(y)) => if x != y {
                 count += 1
             },
